@@ -56,11 +56,11 @@ class ApiRest
         $order_id
     ) {
         $params = [
-            "purchase_country"         => (int) $purchase_country,
+            "purchase_country"         => (string) $purchase_country,
             "purchase_currency"              => (string) $purchase_currency,
-            "locale"              => (int) $locale,
+            "locale"              => (string) $locale,
             "order_amount"    => (string) $order_amount,
-            "order_tax_amount"               => (array) $order_tax_amount,
+            "order_tax_amount"               => (int) $order_tax_amount,
             "order_lines"          => (array) $order_lines,
             "merchant_urls"          => (array) array(
                 "terms" => $terms_url,

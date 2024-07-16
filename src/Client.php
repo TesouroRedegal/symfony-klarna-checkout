@@ -50,9 +50,9 @@ class Client
 		$this->enviroment = $enviroment;
 	}
 
-	public function createKCOOrder($order_id, $amount, $tax_amount)
+	public function createKCOOrder($order_id, $amount)
 	{
-		$order_lines = $this->createMockOrderLines($amount, $tax_amount);
+		$order_lines = $this->createMockOrderLines($amount);
 		
 		try{
 			$api = new ApiRest($this->api_key, $this->enviroment);
@@ -62,7 +62,7 @@ class Client
 				$this->purchase_currency,
 				$this->locale,
 				$amount,
-				$tax_amount,
+				$amount - ($amount * 10000 / (10000 + 1000)),
 				$order_lines,
 				$this->terms_url,
 				$this->checkout_url,
@@ -78,8 +78,8 @@ class Client
 		return $this->SendResponse($response);
 	}
 
-	private function createMockOrderLines($amount, $tax_amount) {
-		return array("order_lines" => array(
+	private function createMockOrderLines($amount) {
+		return array(
 			array(
 				"type" => "physical",
 				"reference" => "19-402-USA",
@@ -90,9 +90,9 @@ class Client
 				"tax_rate" => 1000,
 				"total_amount" => $amount,
 				"total_discount_amount" => 0,
-				"total_tax_amount" => $tax_amount
+				"total_tax_amount" => $amount - ($amount * 10000 / (10000 + 1000))
 			)
-		));
+		);
 	}
 
 	// /**
