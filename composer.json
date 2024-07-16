@@ -1,5 +1,5 @@
 {
-  "name": "jtesouro/klarna-checkout",
+  "name": "tesouroRedegal/symfony-klarna-checkout",
   "description": "PHP Client Library for Klarna Checkout",
   "version": "1.0",
   "authors": [
