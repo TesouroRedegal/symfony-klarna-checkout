@@ -57,7 +57,7 @@ class Client
 		try{
 			$api = new ApiRest($this->api_key, $this->enviroment);
 
-			$response = $api->createCKOOrder(
+			$response = $api->createKCOOrder(
 				$this->purchase_country,
 				$this->purchase_currency,
 				$this->locale,

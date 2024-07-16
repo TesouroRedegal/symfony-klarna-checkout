@@ -42,7 +42,7 @@ class ApiRest
 		}
     }
 
-    public function createCKOOrder(
+    public function createKCOOrder(
         $purchase_country,
         $purchase_currency,
         $locale,
