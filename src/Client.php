@@ -27,13 +27,13 @@ class Client
 
 
 	private string $api_key;
-    private string $purchase_country;
+	private string $purchase_country;
 	private string $purchase_currency;
 	private string $locale;
 	private string $terms_url;
 	private string $checkout_url;
 	private string $confirmation_url;
-	private string  $push_url;
+	private string $push_url;
 
 	private string $enviroment;
 
@@ -53,8 +53,8 @@ class Client
 	public function createKCOOrder($order_id, $amount)
 	{
 		$order_lines = $this->createMockOrderLines($amount);
-		
-		try{
+
+		try {
 			$api = new ApiRest($this->api_key, $this->enviroment);
 
 			$response = $api->createKCOOrder(
@@ -71,14 +71,15 @@ class Client
 				$order_id
 			);
 
-		} catch(Exception $e){
+		} catch (Exception $e) {
 			return $this->SendResponse();
 		}
 
 		return $this->SendResponse($response);
 	}
 
-	private function createMockOrderLines($amount) {
+	private function createMockOrderLines($amount)
+	{
 		return array(
 			array(
 				"type" => "physical",
@@ -101,15 +102,15 @@ class Client
 	// * @return object Objeto de respuesta. Se incluye el valor RESULT (OK para correcto y KO incorrecto)
 	// * @version 1.0 2016-06-03
 	// */
-	private function SendResponse($respuesta = false)
+	private function SendResponse($rawResponse = false)
 	{
 		$result = new stdClass();
-		if (!is_array($respuesta)) {
+		if (is_array($rawResponse)) {
 			$result->RESULT = "KO";
 			$result->DS_ERROR_ID = 1011; // No se pudo conectar con el host
 		} else {
-			$result = (object)$respuesta;
-			if ($respuesta["DS_ERROR_ID"] != "" && $respuesta["DS_ERROR_ID"] != 0) {
+			$result = (object) $rawResponse;
+			if (!empty($rawResponse->DS_ERROR_ID) && $rawResponse->DS_ERROR_ID != 0) {
 				$result->RESULT = "KO";
 			} else {
 				$result->RESULT = "OK";
