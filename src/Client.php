@@ -78,6 +78,45 @@ class Client
 		return $this->SendResponse($response);
 	}
 
+	public function createPaymentSession($order_id, $amount)
+	{
+		$order_lines = $this->createMockOrderLines($amount);
+
+		try {
+			$api = new ApiRest($this->api_key, $this->enviroment);
+
+			$response = $api->createPaymentSession(
+				$this->purchase_country,
+				$this->purchase_currency,
+				$this->locale,
+				$amount,
+				$amount - ($amount * 10000 / (10000 + 1000)),
+				$order_lines,
+				$this->terms_url,
+				$this->checkout_url,
+				$this->confirmation_url,
+				$this->push_url,
+				$order_id
+			);
+
+			$session_id = $response->session_id;
+
+			$response = $api->createHPPSession(
+				$session_id,
+				$this->terms_url,
+				$this->checkout_url,
+				$this->confirmation_url,
+				$this->push_url,
+				$order_id
+			);
+
+		} catch (Exception $e) {
+			return $this->SendResponse();
+		}
+
+		return $this->SendResponse($response);
+	}
+
 	private function createMockOrderLines($amount)
 	{
 		return array(
