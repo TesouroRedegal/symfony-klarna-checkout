@@ -94,7 +94,6 @@ class ApiRest
             "order_lines" => (array) $order_lines,
             "merchant_urls" => (array) array(
                 "confirmation" => $confirmation_url,
-                "app_return_url" => $confirmation_url,
                 "push" => $callback_url
             ),
             "merchant_reference1" => (string) $order_id,
@@ -116,7 +115,7 @@ class ApiRest
                 "cancel" => $error_url,
                 "error" => $error_url,
                 "failure" => $error_url,
-                "success" => $confirmation_url . '?numOrder=' . $order_id,
+                "success" => $confirmation_url . '/{{authorization_token}}/?numOrder=' . $order_id,
             ),
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];
