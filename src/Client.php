@@ -34,10 +34,11 @@ class Client
 	private string $checkout_url;
 	private string $confirmation_url;
 	private string $push_url;
+	private string $error_url;
 
 	private string $enviroment;
 
-	public function __construct($api_key, $purchase_country, $purchase_currency, $locale, $terms_url, $checkout_url, $confirmation_url, $push_url, $enviroment)
+	public function __construct($api_key, $purchase_country, $purchase_currency, $locale, $terms_url, $checkout_url, $confirmation_url, $push_url, $error_url, $enviroment)
 	{
 		$this->api_key = $api_key;
 		$this->purchase_country = $purchase_country;
@@ -47,6 +48,8 @@ class Client
 		$this->checkout_url = $checkout_url;
 		$this->confirmation_url = $confirmation_url;
 		$this->push_url = $push_url;
+		$this->error_url = $error_url;
+
 		$this->enviroment = $enviroment;
 	}
 
@@ -103,10 +106,8 @@ class Client
 
 			$response = $api->createHPPSession(
 				$session_id,
-				$this->terms_url,
-				$this->checkout_url,
+				$this->error_url,
 				$this->confirmation_url,
-				$this->push_url,
 				$order_id
 			);
 

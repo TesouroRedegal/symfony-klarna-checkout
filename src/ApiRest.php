@@ -81,8 +81,6 @@ class ApiRest
         $order_amount,
         $order_tax_amount,
         $order_lines,
-        $terms_url,
-        $checkout_url,
         $confirmation_url,
         $callback_url,
         $order_id
@@ -108,18 +106,17 @@ class ApiRest
 
     public function createHPPSession(
         $session_id,
-        $terms_url,
-        $checkout_url,
+        $error_url,
         $confirmation_url,
-        $callback_url,
         $order_id
     ) {
         $params = [
             "merchant_urls" => (array) array(
-                "terms" => $terms_url,
-                "checkout" => $checkout_url,
-                "authorization" => $confirmation_url,
-                "push" => $callback_url
+                "back" => $error_url,
+                "cancel" => $error_url,
+                "error" => $error_url,
+                "failure" => $error_url,
+                "success" => $confirmation_url . '?numOrder=' . $order_id,
             ),
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];
