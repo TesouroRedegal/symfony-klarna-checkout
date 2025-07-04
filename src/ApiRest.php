@@ -95,9 +95,8 @@ class ApiRest
             "order_tax_amount" => (int) $order_tax_amount,
             "order_lines" => (array) $order_lines,
             "merchant_urls" => (array) array(
-                "terms" => $terms_url,
-                "checkout" => $checkout_url,
-                "authorization" => $confirmation_url,
+                "confirmation" => $confirmation_url,
+                "app_return_url" => $confirmation_url,
                 "push" => $callback_url
             ),
             "merchant_reference1" => (string) $order_id,
