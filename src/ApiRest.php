@@ -115,7 +115,7 @@ class ApiRest
                 "cancel" => $error_url,
                 "error" => $error_url,
                 "failure" => $error_url,
-                "success" => $confirmation_url . '/{{authorization_token}}/?numOrder=' . $order_id,
+                "success" => $confirmation_url . '/?token={{authorization_token}}&numOrder=' . $order_id,
             ),
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];
