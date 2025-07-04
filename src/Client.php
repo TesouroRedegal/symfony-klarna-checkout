@@ -95,8 +95,6 @@ class Client
 				$amount,
 				$amount - ($amount * 10000 / (10000 + 1000)),
 				$order_lines,
-				$this->terms_url,
-				$this->checkout_url,
 				$this->confirmation_url,
 				$this->push_url,
 				$order_id
