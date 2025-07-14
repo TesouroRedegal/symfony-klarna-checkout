@@ -143,7 +143,7 @@ class Client
 	private function SendResponse($rawResponse = false)
 	{
 		$result = new stdClass();
-		if (is_array($rawResponse)) {
+		if (empty($response) || is_array($rawResponse)) {
 			$result->RESULT = "KO";
 			$result->DS_ERROR_ID = 1011; // No se pudo conectar con el host
 		} else {
