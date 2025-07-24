@@ -107,7 +107,8 @@ class ApiRest
         $session_id,
         $error_url,
         $confirmation_url,
-        $order_id
+        $order_id,
+        $push_url
     ) {
         $params = [
             "merchant_urls" => (array) array(
@@ -116,6 +117,7 @@ class ApiRest
                 "error" => $error_url,
                 "failure" => $error_url,
                 "success" => $confirmation_url . '/?token={{authorization_token}}&numOrder=' . $order_id,
+                "status_update" => $push_url . '?hppSessionId={{session_id}}numOrder=' . $order_id
             ),
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];

@@ -106,7 +106,8 @@ class Client
 				$session_id,
 				$this->error_url,
 				$this->confirmation_url,
-				$order_id
+				$order_id,
+				$this->push_url
 			);
 
 		} catch (Exception $e) {
