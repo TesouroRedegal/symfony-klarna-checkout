@@ -116,9 +116,13 @@ class ApiRest
                 "cancel" => $error_url,
                 "error" => $error_url,
                 "failure" => $error_url,
-                "success" => $confirmation_url . '/?token={{authorization_token}}&numOrder=' . $order_id,
-                "status_update" => $push_url . '?hppSessionId={{session_id}}numOrder=' . $order_id
+                "success" => $confirmation_url . '/?numOrder=' . $order_id,
+                "status_update" => $push_url . '?hppId={{session_id}}numOrder=' . $order_id
             ),
+            "options" => [
+                "place_order_mode" => "CAPTURE_ORDER",
+                "purchase_type" => "BUY"
+            ],
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];
 
