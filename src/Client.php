@@ -35,10 +35,10 @@ class Client
 	private string $confirmation_url;
 	private string $push_url;
 	private string $error_url;
-
 	private string $enviroment;
+	private string $validationToken;
 
-	public function __construct($api_key, $purchase_country, $purchase_currency, $locale, $terms_url, $checkout_url, $confirmation_url, $push_url, $error_url, $enviroment)
+	public function __construct($api_key, $purchase_country, $purchase_currency, $locale, $terms_url, $checkout_url, $confirmation_url, $push_url, $error_url, $enviroment, $validationToken)
 	{
 		$this->api_key = $api_key;
 		$this->purchase_country = $purchase_country;
@@ -51,6 +51,7 @@ class Client
 		$this->error_url = $error_url;
 
 		$this->enviroment = $enviroment;
+		$this->validationToken = $validationToken;
 	}
 
 	public function createKCOOrder($order_id, $amount)
@@ -107,7 +108,8 @@ class Client
 				$this->error_url,
 				$this->confirmation_url,
 				$order_id,
-				$this->push_url
+				$this->push_url,
+				$this->validationToken
 			);
 
 		} catch (Exception $e) {

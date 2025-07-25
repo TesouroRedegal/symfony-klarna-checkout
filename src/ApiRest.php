@@ -108,7 +108,8 @@ class ApiRest
         $error_url,
         $confirmation_url,
         $order_id,
-        $push_url
+        $push_url,
+        $validation_token
     ) {
         $params = [
             "merchant_urls" => (array) array(
@@ -117,7 +118,7 @@ class ApiRest
                 "error" => $error_url,
                 "failure" => $error_url,
                 "success" => $confirmation_url . '/?numOrder=' . $order_id,
-                "status_update" => $push_url . '?hppId={{session_id}}numOrder=' . $order_id
+                "status_update" => $push_url . '?hppId={{session_id}}&soe_increment_id=' . $order_id . '&hash=' . hash('sha256', $order_id . '#' . $validation_token),
             ),
             "options" => [
                 "place_order_mode" => "CAPTURE_ORDER",
