@@ -94,7 +94,8 @@ class ApiRest
             "order_lines" => (array) $order_lines,
             "merchant_urls" => (array) array(
                 "confirmation" => $confirmation_url,
-                "push" => $callback_url
+                "push" => $callback_url . '?soe_increment_id=' . $order_id,
+                "authorization" => $callback_url . '?soe_increment_id=' . $order_id
             ),
             "merchant_reference1" => (string) $order_id,
             "intent" => "buy"
