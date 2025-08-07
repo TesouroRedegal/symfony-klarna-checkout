@@ -112,7 +112,7 @@ class ApiRest
             'given_name' => $billing_firstName . ' ' . $billing_lastName,
             'family_name' => $billing_firstName . ' ' . $billing_lastName,
             'phone' => $billing_telephone,
-            'post_code' => $billing_postCode,
+            'postal_code' => $billing_postCode,
             'region' => $billing_region,
             'street_address' => $billing_street
         ];
@@ -124,7 +124,7 @@ class ApiRest
             'given_name' => $shipping_firstName . ' ' . $shipping_lastName,
             'family_name' => $shipping_firstName . ' ' . $shipping_lastName,
             'phone' => $shipping_telephone,
-            'post_code' => $shipping_postCode,
+            'postal_code' => $shipping_postCode,
             'region' => $shipping_region,
             'street_address' => $shipping_street
         ];
