@@ -82,8 +82,28 @@ class Client
 		return $this->SendResponse($response);
 	}
 
-	public function createPaymentSession($order_id, $amount)
-	{
+	public function createPaymentSession(
+		$order_id,
+		$amount,
+		$billing_city,
+		$billing_country,
+		$billing_email,
+		$billing_firstName,
+		$billing_lastName,
+		$billing_telephone,
+		$billing_postCode,
+		$billing_region,
+		$billing_street,
+		$shipping_city,
+		$shipping_countryId,
+		$shipping_email,
+		$shipping_firstName,
+		$shipping_lastName,
+		$shipping_telephone,
+		$shipping_postCode,
+		$shipping_region,
+		$shipping_street,
+	) {
 		$order_lines = $this->createMockOrderLines($amount);
 
 		try {
@@ -98,7 +118,25 @@ class Client
 				$order_lines,
 				$this->confirmation_url,
 				$this->push_url,
-				$order_id
+				$order_id,
+				$billing_city,
+				$billing_country,
+				$billing_email,
+				$billing_firstName,
+				$billing_lastName,
+				$billing_telephone,
+				$billing_postCode,
+				$billing_region,
+				$billing_street,
+				$shipping_city,
+				$shipping_countryId,
+				$shipping_email,
+				$shipping_firstName,
+				$shipping_lastName,
+				$shipping_telephone,
+				$shipping_postCode,
+				$shipping_region,
+				$shipping_street,
 			);
 
 			$session_id = $response->session_id;
@@ -124,15 +162,13 @@ class Client
 		return array(
 			array(
 				"type" => "physical",
-				"reference" => "19-402-USA",
-				"name" => "Red T-Shirt",
+				"reference" => "RDGKLARNAINTEGRATION",
+				"name" => "RDG - Klarna integration",
 				"quantity" => 1,
 				"quantity_unit" => "pcs",
 				"unit_price" => $amount,
-				"tax_rate" => 1000,
 				"total_amount" => $amount,
 				"total_discount_amount" => 0,
-				"total_tax_amount" => $amount - ($amount * 10000 / (10000 + 1000))
 			)
 		);
 	}

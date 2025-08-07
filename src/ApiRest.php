@@ -55,6 +55,7 @@ class ApiRest
         $callback_url,
         $order_id
     ) {
+
         $params = [
             "purchase_country" => (string) $purchase_country,
             "purchase_currency" => (string) $purchase_currency,
@@ -83,9 +84,60 @@ class ApiRest
         $order_lines,
         $confirmation_url,
         $callback_url,
-        $order_id
+        $order_id,
+        $billing_city,
+        $billing_country,
+        $billing_email,
+        $billing_firstName,
+        $billing_lastName,
+        $billing_telephone,
+        $billing_postCode,
+        $billing_region,
+        $billing_street,
+        $shipping_city,
+        $shipping_countryId,
+        $shipping_email,
+        $shipping_firstName,
+        $shipping_lastName,
+        $shipping_telephone,
+        $shipping_postCode,
+        $shipping_region,
+        $shipping_street,
     ) {
+
+        $billing_address = [
+            'city' => $billing_city,
+            'country' => $billing_country,
+            'email' => $billing_email,
+            'given_name' => $billing_firstName . ' ' . $billing_lastName,
+            'family_name' => $billing_firstName . ' ' . $billing_lastName,
+            'phone' => $billing_telephone,
+            'post_code' => $billing_postCode,
+            'region' => $billing_region,
+            'street_address' => $billing_street
+        ];
+
+        $shipping_address = [
+            'city' => $shipping_city,
+            'country' => $shipping_countryId,
+            'email' => $shipping_email,
+            'given_name' => $shipping_firstName . ' ' . $shipping_lastName,
+            'family_name' => $shipping_firstName . ' ' . $shipping_lastName,
+            'phone' => $shipping_telephone,
+            'post_code' => $shipping_postCode,
+            'region' => $shipping_region,
+            'street_address' => $shipping_street
+        ];
+
+        //Fix names
+        $billing_address['given_name'] = str_replace(['\'', '"', ',', ';', '<', '>', '(', ')', '.'], ' ', $billing_address['given_name']);
+        $shipping_address['given_name'] = str_replace(['\'', '"', ',', ';', '<', '>', '(', ')', '.'], ' ', $shipping_address['given_name']);
+        $billing_address['family_name'] = str_replace(['\'', '"', ',', ';', '<', '>', '(', ')', '.'], ' ', $billing_address['family_name']);
+        $shipping_address['family_name'] = str_replace(['\'', '"', ',', ';', '<', '>', '(', ')', '.'], ' ', $shipping_address['family_name']);
+
         $params = [
+            "billing_address" => $billing_address,
+            "shipping_address" => $shipping_address,
             "purchase_country" => (string) $purchase_country,
             "purchase_currency" => (string) $purchase_currency,
             "locale" => (string) $locale,
@@ -120,11 +172,11 @@ class ApiRest
                 "success" => $confirmation_url . '/?token={{authorization_token}}&numOrder=' . $order_id,
                 "status_update" => $push_url . '?hppId={{session_id}}&soe_increment_id=' . $order_id . '&hash=' . hash('sha256', $order_id . '#' . $validation_token),
             ),/*
-    "options" => [
-        "place_order_mode" => "CAPTURE_ORDER",
-        "purchase_type" => "BUY"
-    ],
-    */
+"options" => [
+"place_order_mode" => "CAPTURE_ORDER",
+"purchase_type" => "BUY"
+],
+*/
             "payment_session_url" => $this->endpoint_url . '/payments/v1/sessions/' . $session_id,
         ];
 
