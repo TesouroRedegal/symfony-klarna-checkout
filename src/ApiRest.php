@@ -103,6 +103,7 @@ class ApiRest
         $shipping_postCode,
         $shipping_region,
         $shipping_street,
+        $storepickup_data = null
     ) {
 
         $billing_address = [
@@ -151,6 +152,10 @@ class ApiRest
             "merchant_reference1" => (string) $order_id,
             "intent" => "buy"
         ];
+
+        if (!empty($storepickup_data)) {
+            $params['attachment'] = $storepickup_data;
+        }
 
         return $this->executeRequest('/payments/v1/sessions', $params);
     }

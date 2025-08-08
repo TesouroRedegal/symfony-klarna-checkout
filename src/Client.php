@@ -103,6 +103,7 @@ class Client
 		$shipping_postCode,
 		$shipping_region,
 		$shipping_street,
+		$storepickup_data = null
 	) {
 		$order_lines = $this->createMockOrderLines($amount);
 
@@ -137,6 +138,7 @@ class Client
 				$shipping_postCode,
 				$shipping_region,
 				$shipping_street,
+				$storepickup_data
 			);
 
 			$session_id = $response->session_id;
